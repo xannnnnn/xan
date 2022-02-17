@@ -3,7 +3,9 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common import keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 
 path="C:/Users/a8978/OneDrive/桌面/chromedriver.exe"
@@ -13,6 +15,7 @@ driver.get("https://www.104.com.tw/jobs/main/")
 '''
 actions = actions(driver)
 actions.click()
+'''
 '''
 login = driver.find_element_by_xpath('//*[@id="global_bk"]/ul/li[2]/ul/li[6]/a')
 print(login.text)
@@ -32,6 +35,7 @@ password.send_keys('123456')
 
 login_check = driver.find_element_by_xpath('//*[@id="submitBtn"]/h2')
 login_check.click()
+'''
 
 ikeyword = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "ikeyword"))
@@ -61,12 +65,49 @@ NewTaipei_Tucheng.click()
 
 city_check = driver.find_element_by_xpath("/html/body/div[12]/div/div[2]/div/div[3]/button")
 city_check.click()
-time.sleep(3)
+time.sleep(2)
 
 search = driver.find_element_by_xpath("/html/body/article[1]/div/div/div[4]/div/button")
 search.click()
 
+time.sleep(5)
 '''
+//*[@id="js-job-content"]/article[2]/div[1]/h2/a
+//*[@id="js-job-content"]/article[1]/div[1]/h2/a
+
+
+titles=driver.find_elements_by_class_name('js-job-link')
+for title in titles:
+    driver1=title.get_attribute("href")
+    print(driver1)
+    driver = webdriver.Chrome(path)
+    driver.get(driver1)
+    time.sleep(2)
+    driver.quit()
+'''
+
+btn=driver.find_element_by_class_name('js-next-page')
+print(btn.text)
+btn.click()
+
+
+
+btn = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(By.CLASS_NAME('js-next-page'))
+                                       )
+btn.click()
+
+'''
+print(titles.get_attribute("scr"))
+link = driver.find_element_by_link_text(titles.text)
+print(titles.get_attribute("scr"))
+link.click()
+for title in titles:
+ print(title.text)
+ link = driver.find_element_by_link_text(title.text)
+ link.click()
+
+
 time.sleep(5)
 driver.quit()
 '''
