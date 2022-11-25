@@ -1,0 +1,450 @@
+<div class="row mb-2">
+    <div class="col-12">
+        <button type="button" class="btn btn-link btn-sm px-0 text-decoration-none" onclick="ADD_BTN()"><i
+                class="icon-plus-sign-alt"></i>新增員工</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table id="showTB" class="display compact w-100"></table>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalADD">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="modal_addform" class="form" novalidate>
+                <div class="modal-header">
+                    <h3>新增員工</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-2">
+                            <label for="addform_name" class="col-form-label">名字:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <input type="text" id="addform_name" name="name" value="" class="form-control" required>
+                        </div>
+
+                        <div class="col-2">
+                            <label for="addform_department" class="col-form-label">部門:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select id="addform_department" class="form-select" value="" required
+                                aria-label="Default select example">
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+
+                        <div class="col-2">
+                            <label for="addform_account" class="col-form-label">帳號:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <input type="text" id="addform_account" name="account" value="" class="form-control" required>
+                        </div>
+
+                        <div class="col-2">
+                            <label for="addform_pwd" class="col-form-label">密碼:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <input type="text" id="addform_pwd" name="pwd" value="" class="form-control" required>
+                        </div>
+
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-2">
+                            <label for="addform_phone" class="col-form-label">電話:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <input type="text" id="addform_phone" name="phone" value="" class="form-control" >
+                        </div>
+
+                        <div class="col-2">
+                            <label for="addform_date" class="col-form-label">到職日:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <input type="date" id="addform_date" name="date" value="" class="form-control" required>
+                        </div>
+
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-2">
+                            <label for="addform_permission" class="col-form-label">權限:</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select id="addform_permission" class="form-select" value="" aria-label="Default select example"
+                                required>
+                                <option selected>請選擇</option>
+                                <option value="1">員工</option>
+                                <option value="5">主管</option>
+                                <option value="10">人事</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-2">
+                            <label for="addform_address" class="col-form-label">地址:</label>
+                        </div>
+
+                        <div class="col-10">
+                            <input type="text" id="addform_address" name="address" value="" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-2">
+                            <label for="addform_mail" class="col-form-label">Mail:</label>
+                        </div>
+
+                        <div class="col-10">
+                            <input type="text" id="addform_mail" name="Mail" value="" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="Form_ADD()"><i class="icon-save"></i></button>
+                <button type="button" class="btn btn-secondary" onclick="Modal_close('ADD')"><i
+                        class="icon-remove"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUPD">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="modal_form" class="form">
+                <div class="modal-header">
+                    <h3>假別變更</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    
+                        <div class="row g-3 align-items-center mb-2 updform">
+                            <div class="col-4">
+                                <label for="updform_id" class="col-form-label">編號:</label>
+                                <input type="text" id="updform_id" name="id" value="" readonly="readonly" class="form-control">
+                            </div>
+
+                            <div class="col-2"></div>
+
+                            <div class="col-6">
+                                <label for="updform_date" class="col-form-label">入職日:</label>
+                                <input type="date" id="updform_date" name="onboarding" value="" class="form-control"  >
+                            </div>
+                        </div>
+                    
+
+                    <div class="row g-3 align-items-center mb-2 updform">
+                        <div class="col-4">
+                            <label for="updform_department" class="col-form-label">部門:</label>
+                            <select id="updform_department" class="form-select" value="" required
+                                aria-label="Default select example">
+                            </select>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="updform_name" class="col-form-label">名字:</label>
+                            <input type="text" id="updform_name" name="name" class="form-control">
+                        </div>
+
+                        <div class="col-4">
+                            <label for="updform_permission" class="col-form-label">權限:</label>
+                            <select id="updform_permission" class="form-select" value="" aria-label="Default select example">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">員工</option>
+                                <option value="5">主管</option>
+                                <option value="10">人事</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-items-center mb-2 updform">
+                        <div class="col-4">
+                            <label for="updform_phone" class="col-form-label">電話:</label>
+                            <input type="text" id="updform_phone" name="phone" value="" class="form-control"  >
+                        </div>
+
+                        <div class="col-8">
+                            <label for="updform_mail" class="col-form-label">Mail:</label>
+                            <input type="text" id="updform_mail" name="mail" value="" class="form-control" >
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-items-center mb-2 updform">
+                        <div class="col-12">
+                            <label for="updform_address" class="col-form-label">地址:</label>
+                            <input type="text" id="updform_address" name="id" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center d-none updform">
+                        <div class="col-12">
+                            <label for="updform_index" class="col-form-label">index:</label>
+                            <input type="text" id="updform_index" name="index" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="Form_UPD()"><i class="icon-save"></i></button>
+                <button type="button" class="btn btn-danger" onclick="Form_DEL()"><i class="icon-trash"></i></button>
+                <button type="button" class="btn btn-secondary" onclick="Modal_close('UPD')"><i
+                        class="icon-remove"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var departmentdata
+
+    var showtable = (data) => {
+        var table = $('#showTB').DataTable({
+            "data": data,
+            "columns": [ 
+                {
+                    data: null, title: "#", width: "10%",
+                    render: function (data, type, row, meta) {
+                        data.id = meta.row + 1
+                        return data.id
+                    }
+                },
+                { data: 'index', title: "index"},
+                { data: 'username', title: "姓名" },
+                { data: 'department', title: "部門" },
+                { data: 'email', title: "mail" },
+                { data: 'onboarding', title: "入職日" },
+                { data: 'phone', title: "電話" },
+                { data: 'address', title: "地址" },
+                {
+                    data: null, title: "功能",
+                    render: function (data, type, row) {
+                        return '<button type="button" class="btn btn-link"><i class="icon-edit"></i></button>'
+                    }
+                }
+            ],
+            "columnDefs": [
+                {
+                    "className": "dt-center",
+                    "targets": [0, 1, 2, 3, 5]
+                },
+                {
+                    "targets": [1, 4],
+                    "visible": false,
+                    "searchable": false
+                }
+            ],
+            "lengthMenu": [[10, 25, -1], [10, 25, "All"]],
+        })
+        //單擊
+        $('#showTB').on("click", "button", function () {
+            var data = table.row($(this).parents('tr')).data();
+            FormPush_Department()
+            $("#updform_mail").val(data.email)
+            $("#updform_date").val(data.onboarding)
+            $("#updform_phone").val(data.phone)
+            $("#updform_address").val(data.address)
+            $("#updform_department").val(data.department_index)
+            $("#updform_id").val(data.id)
+            $("#updform_index").val(data.index)
+            $("#updform_name").val(data.username)
+            $("#updform_permission").val(data.permission)
+            $('#ModalUPD').modal('show')
+
+        })
+        //雙擊
+
+        $('#showTB tbody').on('dblclick', 'tr', function () {
+            var data = table.row(this).data();
+            console.log(data);
+            FormPush_Department()
+            $("#updform_mail").val(data.email)
+            $("#updform_date").val(data.onboarding)
+            $("#updform_phone").val(data.phone)
+            $("#updform_address").val(data.address)
+            $("#updform_department").val(data.department_index)
+            $("#updform_id").val(data.id)
+            $("#updform_index").val(data.index)
+            $("#updform_name").val(data.username)
+            $("#updform_permission").val(data.permission)
+            $('#ModalUPD').modal('show')
+        });
+    }
+
+    var Validation = (str,arr) => {
+        let j = arr.length
+        let data = ""
+        for(let i = 0 ;i < arr.length ; i++){
+            if ($("#" + str + "form_" + arr[i] )[0].validity.valueMissing == false){
+                data += '"' + arr[i] + '":"' + $('#' + str + 'form_' + arr[i]).val() +'",'
+            }else{
+                $("#" + str + "form_" + arr[i] )[0].setCustomValidity("請填寫");
+                $("#" + str + "form_" + arr[i] )[0].reportValidity();
+                j=j-1
+            }
+        }
+        data += '"key":"' + j +'"'
+        data="{" + data + "}"
+        var json = JSON.parse(data)
+        return json
+    }
+    var clearform = () => {
+        $("#addform_name").val("")
+        $("#addform_department").val("")
+        $("#addform_account").val("")
+        $("#addform_pwd").val("")
+        $("#addform_phone").val("")
+        $("#addform_date").val("")
+        $("#addform_select").val("")
+        $("#addform_address").val("")
+        $("#addform_mail").val("")
+    }
+    var ADD_BTN = () => {
+        FormPush_Department()
+        clearform()
+        $('#ModalADD').modal('show')
+    }
+
+    var Modal_close = (data) => {
+        let id = '#Modal' + data
+        $(id).modal('hide')
+    }
+
+
+    var Form_ADD = () => {
+
+        let input = ["name","account","pwd","date","address","department","permission"]
+        let data = Validation("add",input)
+           
+        if(data.key == input.length){
+            delete data.key
+            data.phone = $("#addform_phone").val()
+            data.mail = $("#addform_mail").val()
+            data.index = ""
+            data.code = "add"
+            _Post(data,"employee",function(data) {
+                if(data.code > 0){
+                    $('#ModalADD').modal('hide')
+                    $("#leave_show").load("./employee.html") 
+                }else{
+                    $('#ModalADD').modal('hide')
+                    $("#leave_show").load("./employee.html")
+                    alert("更新失敗")
+                }
+            })
+            console.log("成功");
+        }
+    }
+
+    var Form_UPD = () => {
+        let input = ["name","date","address","department","permission"]
+        let data = Validation("upd",input)
+
+        if(data.key == input.length){
+            delete data.key
+            data.phone = $("#updform_phone").val()
+            data.mail = $("#updform_mail").val()
+            data.index = $("#updform_index").val()
+            data.code = "upd"
+            data.pwd = ""
+            data.account = ""
+
+            _Post(data,"employee",function(data) {
+                if(data.code > 0){
+                    $('#ModalUPD').modal('hide')
+                    $("#leave_show").load("./employee.html") 
+                }else{
+                    $('#ModalUPD').modal('hide')
+                    $("#leave_show").load("./employee.html")
+                    alert("更新失敗")
+                }
+            })
+            console.log("成功");
+        }
+    }
+
+    var Form_DEL = () => {
+        let r = confirm("確認刪除資料?");
+        if (r == true) {
+            let data={}
+            data.account = ""
+			data.address = ""
+			data.date = ""
+			data.department = ""
+			data.mail = ""
+			data.name = ""
+			data.permission = ""
+			data.phone = ""
+			data.pwd = ""
+			data.code = "del"
+			data.index = $("#updform_index").val()
+            
+            _Post(data,"employee",function(data) {
+                if(data.code > 0){
+                    $('#ModalUPD').modal('hide')
+                    $("#leave_show").load("./employee.html") 
+                }else{
+                    $('#ModalUPD').modal('hide')
+                    $("#leave_show").load("./employee.html")
+                    alert("更新失敗")
+                }
+            })
+            
+        }
+    }
+
+    var Get_department = () => {
+        $.ajax({
+            url: "http://localhost:8080/Get_departmentTB",
+            type: 'POST',
+            success: function (rsp) {
+                departmentdata = JSON.parse(rsp.data_str)
+            },
+            dataType: "json",
+            contentType: "application/json"
+        });
+    }
+
+    var FormPush_Department = () => {
+        let html = `<option value="" selected>請選擇</option>`
+
+        $.each(departmentdata, function (key, value) {
+            html += `<option value="${value.index}">${value.department}</option>`
+        });
+        $("#addform_department")[0].innerHTML = html
+        $("#updform_department")[0].innerHTML = html
+    }
+
+    var Get_EmpTB = () => {
+        $.ajax({
+            url: "http://localhost:8080/Get_EmpTB",
+            type: 'POST',
+            success: function (rsp) {
+                var data = JSON.parse(rsp.data_str)
+                showtable(data)
+                Get_department()
+            },
+            dataType: "json",
+            contentType: "application/json"
+        });
+    }
+    Get_EmpTB();
+
+</script>
