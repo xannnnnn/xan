@@ -1,0 +1,212 @@
+
+<style>
+    .container_all{
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+    }
+    #siderbar{
+        width: 250px;
+        height: 100%;
+        transition: 1s;
+    }
+    #siderbar.active{
+        margin-left: -200px;
+        background-color: #225165 !important;
+        background: none;
+    }
+    .leaveSelect > div{
+        white-space: nowrap;
+        margin-top: 7px;
+    }
+    .container_right{
+        background-color: lavender;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+    }
+    #siderbar ul li a {
+        color:white;
+        text-decoration:none;
+    }
+    .collapse-btn{
+        position: relative;
+        top: 1%;
+        left: 205px;
+        background-color: #225165;
+        color: mediumaquamarine;
+        border: none;
+        /* font-size: 20px; */
+    }
+    .collapse-btn:hover{
+        background-color: #e7e7e7;
+    }
+    #siderbar{
+        background:url("61656-20191215153916.jpg")  no-repeat bottom center;
+        background-size: 100%;
+        background-color: #225165;
+    }
+    #siderbar p {
+        text-align: center;
+        font-size: 30px;
+        padding: 10px;
+        color: mediumaquamarine;
+    }
+    #siderbar ul li a{
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        /* color: lightseagreen; */
+        color: mediumaquamarine;
+    
+    }
+
+    #siderbar ul li a:hover {
+        background-color: #e7e7e7;
+    }
+    .fas{
+        float: right;
+        padding-right: 15px;
+    }
+    .icon-male{
+        padding-right: 18px;
+    }
+    @media(max-width:600px){
+        #siderbar{
+            margin-left: -100px;
+            width: 150px;
+            font-size: 10px;
+        }
+        .list-unstyled > p{
+            display: none;
+        }
+        .collapse-btn{
+            position: relative;
+            top: 1%;
+            left: 110px;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+        #siderbar.active{
+            margin-left: 0px;
+        }
+    }
+    .icon-plus-sign-alt{
+        font-size: 20px;
+    }
+    .updform > div{
+        display: flex !important;
+
+    }
+    .updform > div > label{
+        white-space: nowrap;
+        padding-right: 5px;
+    }
+    .updform > div > input{
+        padding: 0px; 
+        text-align: center;
+    }
+    #showTB_length{
+        display: none !important;
+    }
+    .leaveaddform{
+        display: flex !important;
+        white-space: nowrap;
+    }
+
+    .leaveaddform input{
+        text-align: center !important;
+    }
+</style>
+
+<div class="container_all">
+    <div class="container_left">
+        <nav id="siderbar">
+            <button type="button" id="collapse" class="collapse-btn"><i class="icon-align-justify"></i></button>
+
+            <ul id="left_navbar" class="list-unstyled">
+                <!-- <li>
+                    <a href="javascript:load_('leaveTB')">請假<i class="fas icon-pencil"></i></a>
+                </li>
+                <li>
+                    <a href="record">年假紀錄<i class="fas icon-calendar" ></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('employee')">員工異動<i class="fas icon-male"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('department')">部門變動<i class="fas icon-sitemap"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('leave_type')">變更假別<i class="fas icon-list-ol"></i></a>
+                </li> -->
+            </ul>
+
+        </nav>
+    </div>
+    
+    <div class="container_right">
+        <div id="leave_show">
+            <h1 class="text-center">歡迎光臨</h1>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#collapse").on("click",function(){   //左NAVBAR縮放
+        $("#siderbar").toggleClass("active");
+        
+    })
+
+    var load_ = (data) => {
+        let temporarily = "./"+ data + ".html"
+        $("#leave_show").load(temporarily)
+    }
+
+    var leftNavbar=()=>{
+        switch (getCookieByName('permission')) {
+            case '1':
+
+                $("#left_navbar")[0].innerHTML =`
+                <p>請假系統</p>
+                <li>
+                    <a href="javascript:load_('leaveTB')">請假<i class="fas icon-pencil"></i></a>
+                </li>`
+                break;
+            case '5':
+
+                $("#left_navbar")[0].innerHTML =`
+                <p>請假系統</p>
+                <li>
+                    <a href="javascript:load_('leaveTB')">請假<i class="fas icon-pencil"></i></a>
+                </li>
+                <li>
+                    <a href="verify">請假審核<i class="fas icon-ok"></i></a>
+                </li>`
+                
+
+
+                break;
+            case '10':
+
+            $("#left_navbar")[0].innerHTML =`
+                <p>請假系統</p>
+
+                <li>
+                    <a href="javascript:load_('verify')">請假審核<i class="fas icon-ok"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('employee')">員工異動<i class="fas icon-male"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('department')">部門變動<i class="fas icon-sitemap"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:load_('leave_type')">變更假別<i class="fas icon-list-ol"></i></a>
+                </li>`
+                break;
+        }
+    }
+    leftNavbar()
+</script>

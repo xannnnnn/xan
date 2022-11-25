@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <style>
+        html,body {
+            height:100%;
+        }
+        body{
+            background:url("login.jpg")  no-repeat center center / cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login{
+            width: 600px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, .5);
+            border-radius: 10px;
+            border: 10px solid #fff;
+            box-shadow: 0 0 60px #000;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form{
+            width: 400px;
+            color: #fff;
+        }
+        .form h2{
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #fff;
+        }
+        .form .group{
+            margin-bottom: 20px;
+        }
+        .form label{
+            line-height: 2;
+        }
+        .form input{
+            width: 100%;
+            border: 1px solid #aaa;
+            line-height: 3;
+            border-radius: 5px;
+        }
+        .form .btn-group{
+            font-size: 0;
+        }
+        .form .btn{
+            font-size: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #6ab4fe;
+            width: 190px;
+            padding: 10px 0;
+            color: #fff;
+        }
+        .form .btn + .btn{
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+   
+<div class="login">
+    <form class="form">
+        <H2>Xan作品展示</H2>
+        <div class="group">
+            <label for="user_name">帳號</label>
+            <input id="user_name" type="text" class="mb-1" value="test">
+        </div>
+        <div class="group">
+            <label for="user_pwd">密碼</label>
+            <input id="user_pwd" type="password" class="mb-1" value="Xan">
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn" onclick="login()">登入</button>
+            <button type="button" class="btn" onclick="register()">註冊</button>
+        </div>
+    </form>
+</div>
+    
+
+<script>
+    var permission
+    function setCookie(cname,cvalue,exdays){
+        exdays = exdays * 24
+        var d = new Date( Date.now() + ( 3600 * 1000 * exdays))
+        var expires = "expires="+ d ;
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    var register = () =>{
+        var msg = $("#msg")[0]
+        var html = "<p style='color:red;'>功能暫不開放。</p>"
+        msg.innerHTML = html
+    }
+
+    var login = () => {
+        let user = $("#user_name").val()
+        let pwd = $("#user_pwd").val()
+        if(user.length == 0 || pwd.length == 0){
+            alert("帳號或密碼為空。")
+        }else{
+            
+            $.ajax({	
+                url: "http://localhost:8080/post",
+                type: 'POST',
+                data:JSON.stringify({ "user": user, "pwd": pwd }),
+                success:function (rsp) {
+                    console.log(rsp);
+                    if(rsp.data.code == 1){
+                        var time = new Date(Date.now())
+                        setCookie("User",rsp.data.UserName,1);
+                        setCookie("ID",rsp.data.index,1);
+                        setCookie("LoginTime",time,1);
+                        setCookie("permission",rsp.data.permission,1);
+                        window.location.href = "http://localhost:8080/index.html";
+                    }else{
+                        var msg = $("#msg")[0]
+                        var html = "<p style='color:red;'>帳號或密碼錯誤。</p>"
+                        msg.innerHTML = html
+                    }
+                },
+                dataType: "json",
+                contentType: "application/json"
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

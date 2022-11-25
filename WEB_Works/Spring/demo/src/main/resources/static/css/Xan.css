@@ -1,0 +1,42 @@
+html,body {
+    height: 100vh;
+    
+}
+
+.container-fluid{
+    height:100%; 
+}
+
+#show{
+    flex: 1; 
+}
+
+#app {
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#center{
+    flex: 1;
+    display: flex;
+}
+
+nav {
+    min-width: 150px;
+}
+
+main {
+    flex: 1;
+}
+.navul{
+    list-style: none; 
+    padding-left: 0px;
+}
+.navbtn{
+    width: 100%;
+   
+}
+.navbtn:hover{
+    background-color: #e7e7e7;
+}
